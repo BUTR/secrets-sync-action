@@ -742,7 +742,7 @@ function run() {
                 return;
             }
             const repoNames = repos.map((r) => r.full_name);
-            core.info(JSON.stringify({
+			/* core.info(JSON.stringify({
                 REPOSITORIES: config.REPOSITORIES,
                 REPOSITORIES_LIST_REGEX: config.REPOSITORIES_LIST_REGEX,
                 SECRETS: config.SECRETS,
@@ -750,7 +750,7 @@ function run() {
                 FOUND_REPOS: repoNames,
                 FOUND_SECRETS: Object.keys(secrets),
                 ENVIRONMENT: config.ENVIRONMENT,
-            }, null, 2));
+            }, null, 2)); */
             const limit = (0, p_limit_1.default)(config.CONCURRENCY);
             const calls = [];
             for (const repo of repos) {
@@ -5133,7 +5133,7 @@ const core = __importStar(__webpack_require__(470));
 function getSecrets(patterns, env = process.env) {
     const regexPatterns = patterns.map((s) => new RegExp(s));
     const keys = Object.keys(env);
-    core.info(`Available env keys: ${JSON.stringify(keys)}`);
+    /*core.info(`Available env keys: ${JSON.stringify(keys)}`);*/
     return keys
         .filter((k) => {
         return env[k] && regexPatterns.filter((r) => r.test(k)).length;
@@ -6103,7 +6103,7 @@ function listAllMatchingRepos({ patterns, octokit, affiliation = "owner,collabor
             affiliation,
             pageSize,
         });
-        core.info(`Available repositories: ${JSON.stringify(repos.map((r) => r.full_name))}`);
+        /*core.info(`Available repositories: ${JSON.stringify(repos.map((r) => r.full_name))}`);*/
         return filterReposByPatterns(repos, patterns);
     });
 }
@@ -6159,7 +6159,7 @@ function setSecretForRepo(octokit, name, secret, repo, environment, dry_run) {
         const [repo_owner, repo_name] = repo.full_name.split("/");
         const publicKey = yield getPublicKey(octokit, repo, environment);
         const encrypted_value = (0, utils_1.encrypt)(secret, publicKey.key);
-        core.info(`Set \`${name} = ***\` on ${repo.full_name}`);
+        /*core.info(`Set \`${name} = ***\` on ${repo.full_name}`);*/
         if (!dry_run) {
             if (environment) {
                 return octokit.actions.createOrUpdateEnvironmentSecret({
@@ -6185,7 +6185,7 @@ function setSecretForRepo(octokit, name, secret, repo, environment, dry_run) {
 exports.setSecretForRepo = setSecretForRepo;
 function deleteSecretForRepo(octokit, name, secret, repo, environment, dry_run) {
     return __awaiter(this, void 0, void 0, function* () {
-        core.info(`Remove ${name} from ${repo.full_name}`);
+        /*core.info(`Remove ${name} from ${repo.full_name}`);*/
         try {
             if (!dry_run) {
                 const action = "DELETE";
